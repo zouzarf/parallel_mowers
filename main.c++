@@ -26,7 +26,7 @@ class Mower {
       y=y_c;
       direction=d;
     };
-    int area (void){
+    int get_x (void){
        return x;
     };
     int get_y (void){
@@ -70,7 +70,6 @@ void mower_i(Mower* mower,string a,string b,int x_max,int y_max){
    lock_table[x_current][y_current].lock();
    position_table[x_current][y_current] = 1;
    lock_table[x_current][y_current].unlock();
-   cout << "got mower " << x_current;
    direction = splittedString[2][0];
    for (int i=0 ; i<b.length() ; i++){
       char command = b[i];
@@ -206,7 +205,7 @@ int main(){
       ofstream myfile;
       myfile.open ("output.txt");
       for(auto m : mowers){
-         myfile << m->area()<<" " << m->get_y()<<" " << m->get_direction() <<"\n" ;
+         myfile << m->get_x()<<" " << m->get_y()<<" " << m->get_direction() <<"\n" ;
       }
       myfile.close();
 
