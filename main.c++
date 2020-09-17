@@ -184,24 +184,25 @@ int main(){
             position_table[i][j]=0;
          }
       }
-      int j=0;
+      // Read every two lines of the file
       while(getline(newfile, tp)){ //read data from file object and put it inthread.
          try{
-            j++;
             string gg;
             getline(newfile, gg);
             Mower *new_mower = new Mower(j);
             threads.push_back(std::thread(mower_i,new_mower, tp,gg,x_max,y_max));
-            mowers.push_back(new_mower); //print the data of the string
+            mowers.push_back(new_mower); // add the mower to the list of mowers
          }
          catch(const std::exception& e) {
             cout << "something";
          }
         
       }
+      // Waiting for the threads to finish
       for(auto& thread : threads){
          thread.join();
       }
+      // Writing the results
       ofstream myfile;
       myfile.open ("output.txt");
       for(auto m : mowers){
