@@ -17,6 +17,8 @@ redirector = {'N':(0,1),'E':(1,0),'S':(0,-1),'W':(-1,0)}
 clockwise_directions = ['N','E','S','W']
 
 import timeit
+
+# Mower Class
 class Mower():
     def __init__(self, x=0, y=0,direction='N',list_instructions=[]):
         self.x = x
@@ -56,7 +58,7 @@ class Mower():
                 self.y=new_y
                 self.x=new_x
             lock_table[new_x][new_y].release()
-#def process_mower
+#Thread function that take a mower and executes its commands
 def iterate_mower(mower,input_coordinates,instructions):
     global lock_table
     global position_table
@@ -102,9 +104,7 @@ if __name__ == '__main__':
     # Defining the ThreadPool we will be
     pool = ThreadPool(16)
     jobs = []
-    l = multiprocessing.Lock()
     list_mowers=[]
-    start = timeit.default_timer()
 
     #Loading the mowers
     while(True):
@@ -116,13 +116,13 @@ if __name__ == '__main__':
         list_mowers.append(new_mower)
         jobs.append(pool.apply_async(iterate_mower,(new_mower,positions,input_instructions,)))
     
+    # Waiting for threads to finish
     for job in jobs:
         job.get()
-
-
-
     pool.close()
     pool.join()
+
+    # Writing the results
     outF = open("output.txt", "w")
 
     for current_mower in list_mowers:
