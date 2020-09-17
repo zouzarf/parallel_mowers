@@ -11,12 +11,10 @@ int** position_table;
 std::mutex** lock_table;
 
 class Mower {
-   int j;
     int x, y;
     char direction;
   public:
-   Mower(int j_x){
-      j=j_x;
+   Mower(){
       x = 0;
       y=0;
       direction='N';
@@ -192,7 +190,7 @@ int main(){
          try{
             string gg;
             getline(newfile, gg);
-            Mower *new_mower = new Mower(j);
+            Mower *new_mower = new Mower();
             threads.push_back(std::thread(mower_i,new_mower, tp,gg,x_max,y_max));
             mowers.push_back(new_mower); // add the mower to the list of mowers
          }
