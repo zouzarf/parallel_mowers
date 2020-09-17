@@ -30,9 +30,6 @@ class Mower {
     int get_y (void){
        return y;
     };
-      int get_j (void){
-       return j;
-    };
     char get_direction (void){
        return direction;
     };
