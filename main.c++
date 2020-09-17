@@ -172,18 +172,21 @@ int main(){
 
       }
       cout << x_max << y_max << " Header \n";
+
+      // Initializing the table position_table and lock_table
       position_table = new int*[x_max];
       lock_table = new std::mutex*[x_max];
-         for(int i = 0; i < x_max; ++i){
-            position_table[i] = new int[y_max];
-            lock_table[i] = new std::mutex[y_max];
-         }
-      std::list <Mower*> mowers;
+      for(int i = 0; i < x_max; ++i){
+         position_table[i] = new int[y_max];
+         lock_table[i] = new std::mutex[y_max];
+      }
       for (int i; i<x_max+1;i++){
          for (int j; j<y_max+1;j++){
             position_table[i][j]=0;
          }
       }
+
+      std::list <Mower*> mowers; // List of the mowers
       // Read every two lines of the file
       while(getline(newfile, tp)){ //read data from file object and put it inthread.
          try{
